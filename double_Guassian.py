@@ -1,3 +1,9 @@
+'''
+Sample from two Gaussian distributions with means m1, and m2 respectively 
+and s.d. s1, and s2 respectively. 
+Assume dimensionality d=2, and dist(m1-m2) is D. 
+Vary,  s1, s2, and D and generate 5 different plots.
+'''
 import matplotlib.pyplot as plt
 import numpy as np
 def PlotGuassian1D(mu=0, sigma=0.1):
@@ -17,6 +23,5 @@ def generatedoubleGuassian(sigma1=0.5, sigma2=0.5, D=0.0):
     plt.title('Guassian Distribution with D='+str(D))
     plt.legend(loc=2)
     plt.show()
-
 
 generatedoubleGuassian()
