@@ -31,11 +31,7 @@ def Test(data, w):
     return sqrt(float(err)/y.shape[0])
 
 def LinearRegression(lamda = 0.5, sigma = 0.5):
-    data = joindata(["Dataset/Dataset/Training/Features_Variant_1.csv",
-                     "Dataset/Dataset/Training/Features_Variant_2.csv",
-                     "Dataset/Dataset/Training/Features_Variant_3.csv",
-                     "Dataset/Dataset/Training/Features_Variant_4.csv",
-                     "Dataset/Dataset/Training/Features_Variant_5.csv"])
+    data = joindata(["Dataset/Training/Features_Variant_1.csv"])
     data1, data2, data3, data4, data5 = np.array_split(data, 5)
     data1 =  data1
     data2 =  np.append(data1, data2, axis=0)
@@ -60,11 +56,11 @@ def ploterr(err, datasize, lamda, sigma):
     plt.title('lamda = ' + str(lamda) + 'sigma = ' + str(sigma))
     plt.show()
     
-LinearRegression(lamda = 0.01, sigma = 0.01)
-LinearRegression(lamda = 0.01, sigma = 0.0)
-LinearRegression(lamda = 0.01, sigma = 100)
-LinearRegression(lamda = 100.0, sigma = 0.01)
-LinearRegression(lamda = 100.0, sigma = 100.0)
+# LinearRegression(lamda = 0.01, sigma = 0.01)
+# LinearRegression(lamda = 0.01, sigma = 0.0)
+# LinearRegression(lamda = 0.01, sigma = 100)
+# LinearRegression(lamda = 100.0, sigma = 0.01)
+# LinearRegression(lamda = 100.0, sigma = 100.0)
 '''
 [27.155924290019023, 27.12002579849863, 27.14673529664478, 27.12632752758645]
 [33.388556151619014, 33.388556151619014, 33.388556151619014, 33.388556151619014]
@@ -72,3 +68,21 @@ LinearRegression(lamda = 100.0, sigma = 100.0)
 [27.15598375931929, 27.12255313966326, 27.14958437877279, 27.128785706937588]
 [27.1559230402831, 27.120025008404365, 27.146732496882695, 27.12632604634389]
 '''
+#LinearRegression(lamda = 0.00001, sigma = 100)
+#LinearRegression(lamda = 0.00001, sigma = 1.0)
+#LinearRegression(lamda = 0.00001, sigma = 0.00001)
+#LinearRegression(lamda = 10000, sigma = 0.1)
+#LinearRegression(lamda = 1.0, sigma = 1000000)
+#LinearRegression(lamda = 1.0, sigma = 1.0)
+#LinearRegression(lamda = 1.0, sigma = 0.0001)
+#LinearRegression(lamda = 0.0000000001, sigma = 0.1)
+#LinearRegression(lamda = 0.000000000001, sigma = 0.1)
+#LinearRegression(lamda = 0.1, sigma = 1000000)
+#LinearRegression(lamda = 0.0000000000000001, sigma = 0.1)
+#LinearRegression(lamda = 1, sigma = 0.1)
+#LinearRegression(lamda = 10, sigma = 0.1)
+#LinearRegression(lamda = 100, sigma = 0.1)
+#LinearRegression(lamda = 1000, sigma = 0.1)
+#LinearRegression(lamda = 10000, sigma = 0.1)
+#LinearRegression(lamda = 10000000, sigma = 0.1)
+LinearRegression(lamda = 100000000, sigma = 0.1)
