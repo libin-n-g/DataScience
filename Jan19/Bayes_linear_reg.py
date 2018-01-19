@@ -60,4 +60,15 @@ def ploterr(err, datasize, lamda, sigma):
     plt.title('lamda = ' + str(lamda) + 'sigma = ' + str(sigma))
     plt.show()
     
-LinearRegression(lamda = 0.1, sigma = 0.1)
+LinearRegression(lamda = 0.01, sigma = 0.01)
+LinearRegression(lamda = 0.01, sigma = 0.0)
+LinearRegression(lamda = 0.01, sigma = 100)
+LinearRegression(lamda = 100.0, sigma = 0.01)
+LinearRegression(lamda = 100.0, sigma = 100.0)
+'''
+[27.155924290019023, 27.12002579849863, 27.14673529664478, 27.12632752758645]
+[33.388556151619014, 33.388556151619014, 33.388556151619014, 33.388556151619014]
+[27.143985687227616, 27.1200275310384, 28.82547939529713, 27.162962559410662]
+[27.15598375931929, 27.12255313966326, 27.14958437877279, 27.128785706937588]
+[27.1559230402831, 27.120025008404365, 27.146732496882695, 27.12632604634389]
+'''
