@@ -17,22 +17,21 @@ def generate_z(theta):
     return sample
 def generate_mu_sigma (d, mu_, sigma_):
     sigma = [[0 for i in range (d)] for j in range(d)]
-    sigma_temp = np.random.normal(1.0, 0.005, 1)
-    # print sigma_temp
+    sigma_temp = np.random.normal(2.0, 0.5, 1)
     for i in range(d):
         sigma[i][i] = sigma_temp[0]
-    mu = np.random.multivariate_normal(mu_, sigma_, 1)
+    mu = np.random.multivariate_normal(mu_, np.array(sigma_), 1)
     return (list(mu), sigma)
     
 def generate_x(theta, mu, sigma, n = 1000):
     out = []
-    out_z = []
+    label = []
     for i in range(n):
         z = generate_z(theta)
         sample_point = np.random.multivariate_normal(list(mu[z]), sigma[z], 1)
+        label.append([z])
         out.append(sample_point)
-        out_z.append(z)
-    return (np.array(out), np.array(out_z))
+    return (np.array(out), np.array(label))
 def write3d(filename ,data, flag=1):
     data = np.array(data)
     with file(filename, 'w+') as outfile:
@@ -40,14 +39,13 @@ def write3d(filename ,data, flag=1):
         # Any line starting with "#" will be ignored by numpy.loadtxt
         if flag:
             outfile.write('# Array shape: {0}\n'.format(data.shape))
-
         # Iterating through a ndimensional array produces slices along
         # the last axis. This is equivalent to data[i,:,:] in this case
         for data_slice in data:
             
             # The formatting string indicates that I'm writing out
             # the values in left-justified columns 7 characters in width
-            # with 2 decimal places.  
+            # with 2 decimal places.
             np.savetxt(outfile, data_slice, fmt='%-7.2f')
 
             # Writing out a break to indicate different slices...
@@ -98,15 +96,15 @@ if __name__=='__main__':
              5 : theta2,
              10 : theta3}
     out = {}
-    out_z = {}
+    label = {}
     i=0
     for d in [2, 5, 10]: #d
         for n in [100, 1000, 10000]: #n
             for k in [2, 5, 10]: #k
-                out[i], out_z[i] =  generate_x(theta[k], mu[d][k], sigma[d][k], n)
+                out[i], label[i] =  generate_x(theta[k], mu[d][k], sigma[d][k], n)
                 write3d("parm/parm_mean_d{}_n{}_k{}".format(d, n, k) , mu[d][k])
                 write3d("parm/parm_var_d{}_n{}_k{}".format(d, n, k) , sigma[d][k])
                 write3d("data/data_points_d{}_n{}_k{}".format(d, n, k) , out[i], 0)
-                write3d("data/cluster_data_points_d{}_n{}_k{}".format(d, n, k) , out_z[i], 0)
+                write3d("data/label_points_d{}_n{}_k{}".format(d, n, k) , label[i], 0)
                 i = i+1
 
