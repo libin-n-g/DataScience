@@ -20,7 +20,7 @@ def generate_mu_sigma (d, mu_, sigma_):
     sigma_temp = np.random.normal(2.0, 0.5, 1)
     for i in range(d):
         sigma[i][i] = sigma_temp[0]
-    mu = np.random.multivariate_normal(mu_, np.array(sigma_), 1)
+    mu = np.random.multivariate_normal(mu_, d*np.array(sigma_), 1)
     return (list(mu), sigma)
     
 def generate_x(theta, mu, sigma, n = 1000):
