@@ -15,9 +15,9 @@ def make_dict(file_pairs):
     english_words = []
     for i,j in file_pairs:
         with open(j,"r") as f:
-            english_words.extend(f.read().split())
+            english_words.extend(re.sub(r'[^\w]', ' ', f.read()).split())
         with open(i,"r") as e:
-            french_words.extend(e.read().split())
+            french_words.extend(re.sub(r'[^\w]', ' ', e.read()).split())
     french_words = map(lambda x:x.lower(), french_words)
     english_words = map(lambda x:x.lower(), english_words)
     regex = re.compile(r'\d+(\.\d*)?')
@@ -26,37 +26,32 @@ def make_dict(file_pairs):
     fr = Counter(french_words)
     eg = Counter(english_words)
     return (fr,eg)
-def plot(f_dict, e_dict):
-    print "test"
+def plot(e_dict):
     y =  sorted(e_dict.values(), reverse = True)
-    print y
     x = range(len(y))
     plt.plot(x, y)
     plt.xlabel('Rank')
     plt.ylabel('word count')
     plt.show()
     
+
+def filter_corpus(words, top = 0.1, bottom=0.8):
+    wordcount = sorted(words.values())
+    l = len(words.values())
+    lower = wordcount[int(l*top)]
+    upper = wordcount[int(l*bottom)]
+    cutted = {k:v for k,v in words.iteritems() if v >= lower and v <= upper}
+    plot(cutted)
+    for k,v in cutted.iteritems():
+        print k,v
+    return cutted
+
 s,q = make_dict(get_files())
+
+s = filter_corpus(s,0.6, 0.98)
+s = filter_corpus(q,0.6 , 0.98)
+
 l = len(s.values())
 print l
-f = 1 - (5000/float(l))
-print f
-sss = sorted(s.values(),reverse = True)
-print sss
-print sss[30000]
-lower = sss[30000]
-upper = sss[1000]
-print sss[1000:30000]
-print upper, lower
-for k,v in s.iteritems():
-    #print k,v
-    if ((v >= lower) and (v <= upper)):
-        print "found"
-a = {k:v for k,v in s.iteritems() if v >= lower and v <= upper}
-print a
-print sorted(a.values())
-plot(q, a)
-#print sorted(s.values())
-#print sorted(s.values())[-len(s.values())/4:]
-#print s['.']
+
 
